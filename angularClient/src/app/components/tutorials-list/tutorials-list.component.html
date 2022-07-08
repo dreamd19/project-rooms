@@ -1,0 +1,45 @@
+<div class="list row">
+    <div class="col-md-8">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by title"
+          [(ngModel)]="title"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="searchTitle()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h4>Rooms</h4>
+      <span>List of examination room.</span>
+      <div class="card" style="width: 18rem;" 
+          *ngFor="let tutorial of tutorials; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setActiveTutorial(tutorial, i)">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <i class="fa-solid fa-house-chimney"></i>
+        <div class="card-body">
+          <p class="card-text">{{ tutorial.title }}</p>
+          <p>{{tutorial.numberOfStuden}}</p>
+        </div>
+      </div>
+      <button class="m-3 btn btn-sm btn-danger" (click)="removeAllTutorials()">
+        Remove All
+      </button>
+    </div>
+    <div class="col-md-6">
+      <app-tutorial-details
+        [viewMode]="true"
+        [currentTutorial]="currentTutorial"
+      ></app-tutorial-details>
+    </div>
+  </div>

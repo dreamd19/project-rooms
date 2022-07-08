@@ -1,0 +1,33 @@
+{
+  "name": "angular-crud-example1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mysql"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@angular/cdk": "^14.0.4",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "font-awesome": "^4.7.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "ngx-bootstrap": "^8.0.0",
+    "primeicons": "^5.0.0",
+    "primeng": "^14.0.0-rc.1",
+    "sequelize": "^6.21.2",
+    "sequelize-cli": "^6.4.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^14.0.5"
+  }
+}
