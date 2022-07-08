@@ -1,1 +1,39 @@
-<p>login works!</p>
+  <div>
+      <div class="submit-form">
+        <div class="row text-center">
+          <div class="col-md-12">
+            <h4>Login</h4>
+            <small>login to continue</small>
+          </div>
+        </div>
+        <div class="pt-5">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              required
+              [(ngModel)]="email"
+              name="email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              class="form-control"
+              id="password"
+              required
+              type="password"
+              [(ngModel)]="password"
+              name="password"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button (click)="login()" class="btn btn-success w-100" >Log in</button>
+          </div>
+        </div>
+      </div>
+    </div>
