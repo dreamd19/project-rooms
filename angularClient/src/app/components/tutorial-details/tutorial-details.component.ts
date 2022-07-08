@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Tutorial } from 'src/app/models/tutorial.model';
 import { TutorialService } from 'src/app/services/tutorial.service';
@@ -9,10 +9,12 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   styleUrls: ['./tutorial-details.component.scss'],
 })
 export class TutorialDetailsComponent implements OnInit {
+  @ViewChild('alert', { static: true }) alert!: ElementRef;
   @Input() viewMode = false;
   @Input() currentTutorial: Tutorial = {
     title: '',
     description: '',
+    numberOfStuden: 0,
     published: false
   };
   
@@ -51,7 +53,7 @@ export class TutorialDetailsComponent implements OnInit {
     this.tutorialService.update(this.currentTutorial.id, data)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          
           this.currentTutorial.published = status;
           this.message = res.message ? res.message : 'The status was updated successfully!';
         },
@@ -64,22 +66,31 @@ export class TutorialDetailsComponent implements OnInit {
     this.tutorialService.update(this.currentTutorial.id, this.currentTutorial)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          
           this.message = res.message ? res.message : 'This tutorial was updated successfully!';
+          setTimeout(() => {
+            this.router.navigate(['/']) ;
+          }, 1000);
+          
         },
         error: (e) => console.error(e)
       });
   }
   
   deleteTutorial(): void {
-    this.tutorialService.delete(this.currentTutorial.id)
+    if(confirm("Are you sure to delete "+ this.currentTutorial.title)) {
+      this.tutorialService.delete(this.currentTutorial.id)
       .subscribe({
         next: (res) => {
-          console.log(res);
-          this.router.navigate(['/tutorials']);
+          this.message = res.message ? res.message : 'Delete successfully!';
+          setTimeout(() => {
+            this.router.navigate(['/tutorials']);
+          }, 1000);
+          
         },
         error: (e) => console.error(e)
       });
+    }
   }
 
 }

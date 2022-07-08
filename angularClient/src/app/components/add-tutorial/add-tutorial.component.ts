@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Tutorial } from 'src/app/models/tutorial.model';
 import { TutorialService } from 'src/app/services/tutorial.service';
 
@@ -8,6 +9,7 @@ import { TutorialService } from 'src/app/services/tutorial.service';
   styleUrls: ['./add-tutorial.component.css']
 })
 export class AddTutorialComponent implements OnInit {
+  @ViewChild('alert', { static: true }) alert!: ElementRef;
   tutorial: Tutorial = {
     title: '',
     description: '',
@@ -16,8 +18,11 @@ export class AddTutorialComponent implements OnInit {
     published: false
   };
   submitted = false;
+  message = '';
 
-  constructor(private tutorialService: TutorialService) { }
+  constructor(
+    private tutorialService: TutorialService,
+    private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -29,13 +34,15 @@ export class AddTutorialComponent implements OnInit {
       numberOfStuden: this.tutorial.numberOfStuden,
       image: this.tutorial.image
     };
-    console.log('saveTutorial');
-    
+
     this.tutorialService.create(data)
       .subscribe({
         next: (res) => {
-          console.log(res);
-          this.submitted = true;
+          this.message = res.message ? res.message : 'Successfully!';
+          setTimeout(() => {
+            this.router.navigate(['/']) ;
+          }, 1000);
+          // this.submitted = true;
         },
         error: (e) => console.error(e)
       });

@@ -1,3 +1,7 @@
+<div #alert *ngIf="message" class="alert alert-success alert-dismissible fade show" role="alert">
+   {{message}}
+</div>
+
 <div *ngIf="viewMode; else editable">
     <div *ngIf="currentTutorial.id">
       <h4>Tutorial</h4>
@@ -70,7 +74,6 @@
       >
         Update
       </button>
-      <p>{{ message }}</p>
     </div>
     <div *ngIf="!currentTutorial.id">
       <br />

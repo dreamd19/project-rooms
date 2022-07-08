@@ -1,1 +1,53 @@
-<p>register works!</p>
+<div #alert *ngIf="message" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{message}}
+  </div>
+  <div>
+      <div class="submit-form">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Create new Account</h4>
+            <small>create new Examination Room</small>
+          </div>
+        </div>
+        <div *ngIf="!submitted" class="pt-5">
+          <div class="form-group">
+            <label for="register">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              id="register"
+              required
+              [(ngModel)]="register.email"
+              name="register"
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              class="form-control"
+              id="password"
+              required
+              type="password"
+              [(ngModel)]="register.password"
+              name="password"
+            />
+          </div>
+          <div class="form-group">
+            <label for="confpassword">Confirm Password</label>
+            <input
+              class="form-control"
+              id="confpassword"
+              required
+              type="password"
+              [(ngModel)]="register.confpassword"
+              name="confpassword"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button (click)="saveTutorial()" class="btn btn-success w-100">Create</button>
+          </div>
+        </div>
+      </div>
+    </div>

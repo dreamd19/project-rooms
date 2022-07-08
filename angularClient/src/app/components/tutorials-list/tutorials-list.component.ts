@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Tutorial } from 'src/app/models/tutorial.model';
 import { TutorialService } from 'src/app/services/tutorial.service';
 
@@ -12,7 +13,12 @@ export class TutorialsListComponent implements OnInit {
   currentTutorial: Tutorial = {};
   currentIndex = -1;
   title = '';
-  constructor(private tutorialService: TutorialService) { }
+  tutorialLength = 0;
+
+  constructor(
+    private tutorialService: TutorialService,
+    private router : Router
+    ) { }
 
   ngOnInit(): void {
     this.retrieveTutorials();
@@ -23,6 +29,7 @@ export class TutorialsListComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.tutorials = data;
+          this.tutorialLength = this.tutorials.length;
           console.log(data);
         },
         error: (e) => console.error(e)
@@ -62,6 +69,10 @@ export class TutorialsListComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
+  }
+
+  goAddRoomPage(){
+    this.router.navigate(['/add']);
   }
 
 }
