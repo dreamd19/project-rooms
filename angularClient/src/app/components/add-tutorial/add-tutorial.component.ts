@@ -12,6 +12,7 @@ export class AddTutorialComponent implements OnInit {
     title: '',
     description: '',
     numberOfStuden: 0,
+    image: '',
     published: false
   };
   submitted = false;
@@ -25,7 +26,8 @@ export class AddTutorialComponent implements OnInit {
     const data = {
       title: this.tutorial.title,
       description: this.tutorial.description,
-      numberOfStuden: this.tutorial.numberOfStuden
+      numberOfStuden: this.tutorial.numberOfStuden,
+      image: this.tutorial.image
     };
     console.log('saveTutorial');
     
@@ -45,6 +47,7 @@ export class AddTutorialComponent implements OnInit {
       title: '',
       description: '',
       numberOfStuden: 0,
+      image: '',
       published: false
     };
   }

@@ -3,5 +3,6 @@ export class Tutorial {
     title?: string;
     description?: string;
     numberOfStuden?: number;
+    image?: string;
     published?: boolean;
   }
