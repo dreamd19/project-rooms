@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TutorialService } from 'src/app/services/tutorial.service';
+import { Student } from 'src/app/models/student.model';
+import { RegisterService } from 'src/app/services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -9,39 +11,57 @@ import { TutorialService } from 'src/app/services/tutorial.service';
 })
 export class RegisterComponent implements OnInit {
   @ViewChild('alert', { static: true }) alert!: ElementRef;
-  register!: {
+  register: Student = {
     email: '',
     password: '',
     confpassword: ""
   };
   submitted = false;
   message = '';
+  isCheck = true;
 
   constructor(
-    private tutorialService: TutorialService,
+    private registerService: RegisterService,
     private router : Router
   ) { }
 
   ngOnInit(): void {
   }
 
-  saveTutorial(): void {
+  registerUser(): void {
     const data = {
       email: this.register.email,
       password: this.register.password,
     };
+    
+    if(this.register.email && this.register.password && this.register.confpassword){
+      this.submitted = false;
+      this.registerService.create(data)
+        .subscribe({
+          next: (res) => {
+            this.message = res.message ? res.message : 'Successfully!';
+            setTimeout(() => {
+              this.router.navigate(['/']) ;
+            }, 1000);
+            // this.submitted = true;
+          },
+          error: (e) => console.error(e)
+        });
+    }else{
+      this.submitted = true
+      this.message = 'กรอกข้อมูลให้ครบ!';
+      return
+    }
 
-    this.tutorialService.create(data)
-      .subscribe({
-        next: (res) => {
-          this.message = res.message ? res.message : 'Successfully!';
-          setTimeout(() => {
-            this.router.navigate(['/']) ;
-          }, 1000);
-          // this.submitted = true;
-        },
-        error: (e) => console.error(e)
-      });
+    
   }
+
+  checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 
+    let pass = this.register.password;
+    let confirmPass = this.register.confpassword;
+    this.message = 'รหัสผ่านไม่ตรงกัน!';
+    return pass === confirmPass ? null : { notSame: true }
+  }
+
 
 }
